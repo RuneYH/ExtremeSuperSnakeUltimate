@@ -134,13 +134,9 @@ public class SuperSnake {
             }
             terminal.flush(); // Prints all code above into terminal
         }
-        // When Game Over
-        for (SnakePart snakePart : snake) { // Loop through snake array
-            snakePart.removePart(terminal); // Removing all the snake parts that is found in the loop
-        }
-        terminal.setCursorPosition(apple.x, apple.y); // Set cursor on the position of apple
-        terminal.putCharacter(' '); // Replace apple with empty space
-        gameOver(terminal,score); // Call gameOver method
+        // GAME OVER
+        terminal.clearScreen(); // Clearing screen when game is over
+        gameOver(terminal,score); // Calling gameOver method to print "Game Over
     }
     private static void gameOver(Terminal terminal, int score) throws IOException {
         String gameOver = "GAME OVER dude... Score: " + score; // The text that appears when game is over
