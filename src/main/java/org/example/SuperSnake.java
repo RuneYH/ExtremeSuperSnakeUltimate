@@ -60,7 +60,7 @@ public class SuperSnake {
                         snake.remove(0); // Removing the last part of the tail (index 0) from array. Makes the array return back to its real size. When removing index 0 the array adjusts by moving all index numbers down one spot.
                     break;
                 case ArrowRight:
-                    newHead = new SnakePart(oldHead.getX() +1, oldHead.getY());
+                    newHead = new SnakePart(oldHead.getX() + 1, oldHead.getY());
                     snake.add(newHead);
                     snake.get(0).removePart(terminal);
                     newHead.printPart(terminal);
@@ -68,7 +68,7 @@ public class SuperSnake {
                     snake.remove(0);
                     break;
                 case ArrowUp:
-                    newHead = new SnakePart(oldHead.getX(), oldHead.getY() -1);
+                    newHead = new SnakePart(oldHead.getX(), oldHead.getY() - 1);
                     snake.add(newHead);
                     snake.get(0).removePart(terminal);
                     newHead.printPart(terminal);
@@ -76,7 +76,7 @@ public class SuperSnake {
                     snake.remove(0);
                     break;
                 case ArrowLeft:
-                    newHead = new SnakePart(oldHead.getX() -1, oldHead.getY());
+                    newHead = new SnakePart(oldHead.getX() - 1, oldHead.getY());
                     snake.add(newHead);
                     snake.get(0).removePart(terminal);
                     newHead.printPart(terminal);
