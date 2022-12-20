@@ -15,7 +15,10 @@ public class SuperSnake {
         // Creating terminal
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         Terminal terminal = terminalFactory.createTerminal();
-        terminal.setCursorVisible(false); // Make cursor invisible
+        terminal.setCursorVisible(false); // Making cursor invisible
+
+        // Score
+        int score = 0;
 
         //Snake setup
         List<SnakePart> snake = new ArrayList<>(); // Arraylist contains variables (coordinates of snake start position)
@@ -26,16 +29,14 @@ public class SuperSnake {
         snake.add(new SnakePart(9,10));
         snake.add(new SnakePart(10,10));
         for (SnakePart snakePart : snake) { // Running through array
-            snakePart.printPart(terminal); // Print snake
+            snakePart.printPart(terminal); // Printing snake
         }
 
         // Apple placement
         Apple apple = new Apple(terminal); // ?? Calling from Apple class. Placing apple in terminal at random position
-
         terminal.flush();
 
         // SNAKE MOVEMENT
-
         SnakePart newHead; // The variable that control head of the snake. Is initiated with every movement of the snake.
 
         boolean alive = true;
@@ -48,16 +49,14 @@ public class SuperSnake {
             }
             while (keyStroke == null); // Keeps looping as long as there's no keystroke
 
-
             SnakePart oldHead = snake.get(snake.size()-1); // The body variable that removes the end of snake tail after movement, so following heads instructions
 
             // Takes input and navigates inside the terminal
-            switch (keyStroke.getKeyType()){
+            switch (keyStroke.getKeyType()){ // !! Make content into method to just have the code once instead of four times
                 case ArrowDown:
                     newHead = new SnakePart(oldHead.getX(), oldHead.getY() + 1); // Call class SnakePart. Add one to Y axis to go down (upper row is 0)
 
                     if (newHead.isCollision(snake)){ // When newHead is equal to snake the game is over
-                        // GAME OVER
                         alive = false; // When alive is false the while loop ends the game
                     }
 
@@ -67,7 +66,7 @@ public class SuperSnake {
 
                     if(apple.isApple(newHead)) {
                         apple = new Apple(terminal);
-                        // score
+                        score++;
                     }
                     else {
                         snake.remove(0); // Removing the last part of the tail (index 0) from array.
@@ -79,7 +78,6 @@ public class SuperSnake {
                     newHead = new SnakePart(oldHead.getX() + 1, oldHead.getY());
 
                     if (newHead.isCollision(snake)){
-                        // GAME OVER
                         alive = false;
                     }
 
@@ -89,7 +87,7 @@ public class SuperSnake {
 
                     if(apple.isApple(newHead)) {
                         apple = new Apple(terminal);
-                        // score
+                        score++;
                     }
                     else {
                         snake.remove(0);
@@ -99,7 +97,6 @@ public class SuperSnake {
                     newHead = new SnakePart(oldHead.getX(), oldHead.getY() - 1);
 
                     if (newHead.isCollision(snake)){
-                        // GAME OVER
                         alive = false;
                     }
 
@@ -109,7 +106,7 @@ public class SuperSnake {
 
                     if(apple.isApple(newHead)) {
                         apple = new Apple(terminal);
-                        // score
+                        score++;
                     }
                     else {
                         snake.remove(0);
@@ -119,7 +116,6 @@ public class SuperSnake {
                     newHead = new SnakePart(oldHead.getX() - 1, oldHead.getY());
 
                     if (newHead.isCollision(snake)){
-                        // GAME OVER
                         alive = false;
                     }
 
@@ -129,7 +125,7 @@ public class SuperSnake {
 
                     if(apple.isApple(newHead)) {
                         apple = new Apple(terminal);
-                        // score
+                        score++;
                     }
                     else {
                         snake.remove(0);
@@ -144,10 +140,10 @@ public class SuperSnake {
         }
         terminal.setCursorPosition(apple.x, apple.y); // Set cursor on the position of apple
         terminal.putCharacter(' '); // Replace apple with empty space
-        gameOver(terminal); // Call gameOver method
+        gameOver(terminal,score); // Call gameOver method
     }
-    private static void gameOver(Terminal terminal) throws IOException {
-        String gameOver = "GAME OVER dude..."; // The text that appears when game is over
+    private static void gameOver(Terminal terminal, int score) throws IOException {
+        String gameOver = "GAME OVER dude... Score: " + score; // The text that appears when game is over
         terminal.setCursorPosition(25,10); // Placing the game over text
         for (char c : gameOver.toCharArray()) { // The string is made into a char array
             terminal.putCharacter(c); // Printing each char in char array
@@ -158,5 +154,7 @@ public class SuperSnake {
     // COLLISION WITH FRAME
 
     // SCORE
+
+    // AVOID APPLE inside snake
 
 }

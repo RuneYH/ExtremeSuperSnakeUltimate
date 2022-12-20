@@ -4,12 +4,12 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 import java.util.Random;
 
-public class Apple {
+public class Apple { // !! Move into constructor
     Random random = new Random();
     int x = random.nextInt(3,75);
     int y = random.nextInt(3,20);
 
-    public Apple(Terminal terminal) throws IOException { // Constructor that takes in objects terminal and random as arguments
+    public Apple(Terminal terminal) throws IOException { // Constructor that takes in object terminal as arguments
         final char apple = '\u014F'; // Define apple variable
         terminal.setCursorPosition(x,y); // Placing cursor randomly to know where to put apple
         terminal.putCharacter(apple); // Placing apple at randomly placed cursor
