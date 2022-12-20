@@ -2,6 +2,7 @@ package org.example;
 
 import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
+import java.util.List;
 
 // Object oriented programming!
 // Holds variables of the snake's body
@@ -37,5 +38,14 @@ public class SnakePart {
     private void print(Terminal terminal, char symbol) throws IOException { // Method for printing. IOException added because setCursorPosition and putCharacter are abstract methods that needs an exception.
         terminal.setCursorPosition(x,y); // Setting cursor position.
         terminal.putCharacter(symbol); // Printing any symbol at cursor position.
+    }
+
+    public boolean isCollision(List<SnakePart> snake) { // Method that checks if snakehead hits any position that is in the Snake arraylist
+        for (SnakePart snakePart : snake){ // Checking every index of the arraylist
+            if (snakePart.getX() == x && snakePart.getY() == y){ // Collision is true if snakehead is equal to a position in the arraylist
+                return true;
+            }
+        }
+        return false;
     }
 }
