@@ -11,56 +11,52 @@ import javax.swing.text.Position;
 
 public class SuperSnake {
 
-    //terminal created
     public static void main(String[] args) throws Exception {
+        // Creating terminal
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
         Terminal terminal = terminalFactory.createTerminal();
-        terminal.setCursorVisible(false);
+        terminal.setCursorVisible(false); // Make cursor invisible
 
-        //Snake setup / Variables
-        List<SnakePart> snake = new ArrayList<>();
+        //Snake setup
+        List<SnakePart> snake = new ArrayList<>(); // Arraylist contains variables (coordinates of snake start position)
         snake.add(new SnakePart(5,10));
         snake.add(new SnakePart(6,10));
         snake.add(new SnakePart(7,10));
         snake.add(new SnakePart(8,10));
         snake.add(new SnakePart(9,10));
         snake.add(new SnakePart(10,10));
-        for (SnakePart snakePart : snake) {
-            snakePart.printPart(terminal);
+        for (SnakePart snakePart : snake) { // Running through array
+            snakePart.printPart(terminal); // Print snake
         }
 
-
-        Random r = new Random(); //apple random placement
-
-        applePlacement(terminal, r); //calling in snake movement method
-
+        // Apple placement
+        Random r = new Random(); // Method to create random number
+        applePlacement(terminal, r); // Placing apple in terminal at random position
         terminal.flush();
 
-        //SNAKE MOVEMENT
+        // SNAKE MOVEMENT
 
-        while (true) { //method to be able to walk more than one step
-            //SnakeHead position
-
-            KeyStroke keyStroke = null; //the user have not used Key function yet
-            do {                        //until the user presses keyStroke, we are creating a mini break of 5 m.sec before next command
-                Thread.sleep(5);
-                keyStroke = terminal.pollInput(); //NextInput from user for each 5 m.sec
+        while (true) { // Method to be able to walk more than one step
+            KeyStroke keyStroke = null; // Defined as null because the user have not used Key function yet
+            do { // In order to not use CPU power on continuously checking for KeyStroke, we created a 5 m.sec pause between every check.
+                Thread.sleep(5); // Take a break for 5 m.sec
+                keyStroke = terminal.pollInput(); // Checking for input every 5 m.sec
             }
-            while (keyStroke == null);
+            while (keyStroke == null); // Keeps looping as long as there's no keystroke
 
-            SnakePart newHead;
-            SnakePart oldHead = snake.get(snake.size()-1);
 
-            //switch
-            // takes input and navigates inside the terminal
+            SnakePart newHead; // The variable that control head of the snake. Is initiated with every movement of the snake
+            SnakePart oldHead = snake.get(snake.size()-1); // The body variable that removes the end of snake tail after movement, so following heads instructions
+
+            // Takes input and navigates inside the terminal
             switch (keyStroke.getKeyType()){
                 case ArrowDown:
-                    newHead = new SnakePart(oldHead.getX(), oldHead.getY() + 1);
-                    snake.add(newHead);
-                    snake.get(0).removePart(terminal);
-                    newHead.printPart(terminal);
+                    newHead = new SnakePart(oldHead.getX(), oldHead.getY() + 1); // Call class SnakePart. Add one to Y axis to go down (upper row is 0)
+                    snake.add(newHead); // Adding the new placement of head in the array. Makes the array one index bigger
+                    snake.get(0).removePart(terminal); // Removing the last part in terminal
+                    newHead.printPart(terminal); // Prints new head
             //        if(!isApple)
-                        snake.remove(0);
+                        snake.remove(0); // Removing the last part of the tail (index 0) from array. Makes the array return back to its real size. When removing index 0 the array adjusts by moving all index numbers down one spot.
                     break;
                 case ArrowRight:
                     newHead = new SnakePart(oldHead.getX() +1, oldHead.getY());
@@ -91,18 +87,22 @@ public class SuperSnake {
         }
     }
 
-    //APPLE PLACEMENT method
-    private static void applePlacement(Terminal terminal, Random r) throws IOException {
-        //Apple placement
-        final char apple = 'A'; //define apple variable
-        terminal.setCursorPosition(r.nextInt(1,90),r.nextInt(1,90)); //cursor placement
-        terminal.putCharacter(apple); //apple placement
+    // APPLE PLACEMENT method
+    private static void applePlacement(Terminal terminal, Random random) throws IOException { // Method that takes in objects terminal and random as arguments
+        final char apple = 'A'; // Define apple variable
+        terminal.setCursorPosition(random.nextInt(1,90),random.nextInt(1,90)); // Placing cursor randomly to know where to put apple
+        terminal.putCharacter(apple); // Placing apple at randomly placed cursor
     }
 
+    // EATING APPLE
 
-    //GameOver
+    // GROWING FROM APPLE
 
+    // COLLISION WITH SNAKE
+
+    // COLLISION WITH FRAME
+
+    // GAME OVER
 
     //Unicode
-
 }
