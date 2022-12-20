@@ -36,6 +36,8 @@ public class SuperSnake {
 
         // SNAKE MOVEMENT
 
+        SnakePart newHead; // The variable that control head of the snake. Is initiated with every movement of the snake.
+
         while (true) { // Method to be able to walk more than one step
             KeyStroke keyStroke = null; // Defined as null because the user have not used Key function yet
             do { // In order to not use CPU power on continuously checking for KeyStroke, we created a 5 m.sec pause between every check.
@@ -45,16 +47,15 @@ public class SuperSnake {
             while (keyStroke == null); // Keeps looping as long as there's no keystroke
 
 
-            SnakePart newHead; // The variable that control head of the snake. Is initiated with every movement of the snake
             SnakePart oldHead = snake.get(snake.size()-1); // The body variable that removes the end of snake tail after movement, so following heads instructions
 
             // Takes input and navigates inside the terminal
             switch (keyStroke.getKeyType()){
                 case ArrowDown:
                     newHead = new SnakePart(oldHead.getX(), oldHead.getY() + 1); // Call class SnakePart. Add one to Y axis to go down (upper row is 0)
-                    snake.add(newHead); // Adding the new placement of head in the array. Makes the array one index bigger
-                    snake.get(0).removePart(terminal); // Removing the last part in terminal
-                    newHead.printPart(terminal); // Prints new head
+                    snake.add(newHead); // Adding the new placement of head in the array. Makes the array one index bigger.
+                    snake.get(0).removePart(terminal); // Removing the last part in terminal.
+                    newHead.printPart(terminal); // Prints new head.
             //        if(!isApple)
                         snake.remove(0); // Removing the last part of the tail (index 0) from array. Makes the array return back to its real size. When removing index 0 the array adjusts by moving all index numbers down one spot.
                     break;
@@ -95,6 +96,9 @@ public class SuperSnake {
     }
 
     // EATING APPLE
+    /*public static boolean isApple(SnakePart ){
+        if ()
+    }*/
 
     // GROWING FROM APPLE
 
